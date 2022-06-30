@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.com.nttdata.customer.model.document.EnterpriseCustomer;
+import pe.com.nttdata.customer.model.request.EnterpriseCustomerRequest;
 import pe.com.nttdata.customer.model.service.EnterpriseCustomerService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("${path.enterprise-costumer}")
+@RequestMapping("${path.enterprise-costumers}")
 @AllArgsConstructor
 public class EnterpriseCustomerController {
 
@@ -28,25 +29,25 @@ public class EnterpriseCustomerController {
 
     @GetMapping("/{id}")
     public Mono<ResponseEntity<EnterpriseCustomer>> getCustomer(@PathVariable Long id) {
-        return enterpriseCustomerService.findById(id).map(customer -> {
-            return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(customer);
-        }).onErrorResume(e -> {
-            return Mono.just(ResponseEntity.badRequest()
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body(null));
-        });
+        return enterpriseCustomerService.findById(id)
+                .map(customer -> ResponseEntity.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(customer))
+                .onErrorResume(e -> Mono.just(ResponseEntity.badRequest()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(null)));
     }
 
     @PostMapping
-    public Mono<EnterpriseCustomer> register(@Valid @RequestBody EnterpriseCustomer enterpriseCustomer)
+    public Mono<EnterpriseCustomer> register(@Valid @RequestBody EnterpriseCustomerRequest enterpriseCustomerRequest)
             throws ExecutionException, InterruptedException {
+        EnterpriseCustomer enterpriseCustomer = new EnterpriseCustomer(enterpriseCustomerRequest);
         return enterpriseCustomerService.save(enterpriseCustomer);
     }
 
     @PutMapping
-    public Mono<EnterpriseCustomer> update(@Valid @RequestBody EnterpriseCustomer enterpriseCustomer) {
+    public Mono<EnterpriseCustomer> update(@Valid @RequestBody EnterpriseCustomerRequest enterpriseCustomerRequest) {
+        EnterpriseCustomer enterpriseCustomer = new EnterpriseCustomer(enterpriseCustomerRequest);
         return enterpriseCustomerService.update(enterpriseCustomer);
     }
 

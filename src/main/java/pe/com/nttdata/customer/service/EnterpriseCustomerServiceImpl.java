@@ -43,7 +43,7 @@ public class EnterpriseCustomerServiceImpl implements EnterpriseCustomerService 
     public Mono<EnterpriseCustomer> update(EnterpriseCustomer enterpriseCustomer) {
         return enterpriseCustomerRepository.findById(enterpriseCustomer.getId()).flatMap(c -> {
             c.setBusinessName(enterpriseCustomer.getBusinessName());
-            c.setRUC(enterpriseCustomer.getRUC());
+            c.setRuc(enterpriseCustomer.getRuc());
             c.setUpdatedAt(new Date());
             return enterpriseCustomerRepository.save(c);
         });
