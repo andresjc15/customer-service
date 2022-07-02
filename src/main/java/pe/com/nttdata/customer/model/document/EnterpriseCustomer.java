@@ -1,10 +1,14 @@
 package pe.com.nttdata.customer.model.document;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pe.com.nttdata.customer.model.request.EnterpriseCustomerRequest;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "enterprise_customers")
 public class EnterpriseCustomer extends Customer {
 
