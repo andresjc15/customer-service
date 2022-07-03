@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.com.nttdata.customer.client.account.Account;
+import pe.com.nttdata.customer.client.account.model.service.AccountService;
 import pe.com.nttdata.customer.model.document.EnterpriseCustomer;
 import pe.com.nttdata.customer.model.request.EnterpriseCustomerRequest;
 import pe.com.nttdata.customer.model.service.EnterpriseCustomerService;
@@ -23,6 +25,8 @@ public class EnterpriseCustomerController {
     private static final Logger log = LoggerFactory.getLogger(EnterpriseCustomerController.class);
 
     private final EnterpriseCustomerService enterpriseCustomerService;
+
+    private final AccountService accountService;
 
     @GetMapping
     public Flux<EnterpriseCustomer> getAll() { return enterpriseCustomerService.getAll(); }
@@ -55,5 +59,8 @@ public class EnterpriseCustomerController {
     public Mono<EnterpriseCustomer> delete(@PathVariable Long id) {
         return enterpriseCustomerService.delete(id);
     }
+
+    @GetMapping("/account/{id}")
+    public Mono<Account> findAccountById(@PathVariable Long id) { return accountService.findById(id); }
 
 }
