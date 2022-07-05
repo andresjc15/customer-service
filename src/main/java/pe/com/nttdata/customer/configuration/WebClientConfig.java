@@ -12,13 +12,12 @@ public class WebClientConfig {
     @Value("${config.endpoint.accounts}")
     private String accountUri;
 
-    @Bean
+    @Bean(name = "accountClient")
     @LoadBalanced
     public WebClient.Builder loadBalancedWebClient() { return WebClient.builder().baseUrl(accountUri); }
-    /*
-    @Bean
+
+    @Bean(name = "movementClient")
     @LoadBalanced
-    public WebClient registerWebClient() { return WebClient.create(accountUri); }
-    */
+    public WebClient.Builder movementWebClient() { return WebClient.builder().baseUrl("lb://movement-service/api/movements"); }
 
 }
