@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Data
@@ -16,13 +16,21 @@ public class Customer {
     @Id
     private Long id;
 
+    @NotEmpty(message = "Address can't be empty")
     private String address;
 
-    //@NotBlank(message = "DNI no puede ser nulo o vacio")
+    @Max(value = 999999999, message = "Invalid DNI")
+    @Min(value = 999999, message = "Invalid DNI")
+    @NotNull(message = "DNI can't be null")
     private Integer dni;
+
+    @Max(value = 999999999, message = "Invalid phone")
+    @Min(value = 99999999, message = "Invalid phone")
+    @NotNull(message = "DNI can't be null")
     private Integer phone;
 
-    @NotBlank(message = "Email no puede ser nulo o vacio")
+    @NotBlank(message = "Email can't be null")
+    @Email(message = "Invalid email")
     private String email;
 
     private boolean isActive;
