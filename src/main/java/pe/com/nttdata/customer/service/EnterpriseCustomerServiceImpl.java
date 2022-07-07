@@ -26,10 +26,7 @@ public class EnterpriseCustomerServiceImpl implements EnterpriseCustomerService 
     private final SequenceGeneratorService sequenceGeneratorService;
 
     @Override
-    public Flux<EnterpriseCustomer> getAll() {
-        log.info("Obteniendo clientes empresariales");
-        return enterpriseCustomerRepository.findAll();
-    }
+    public Flux<EnterpriseCustomer> getAll() { return enterpriseCustomerRepository.findAll(); }
 
     @Override
     public Mono<EnterpriseCustomer> save(EnterpriseCustomer enterpriseCustomer) throws ExecutionException, InterruptedException {
@@ -42,6 +39,8 @@ public class EnterpriseCustomerServiceImpl implements EnterpriseCustomerService 
     @Override
     public Mono<EnterpriseCustomer> update(EnterpriseCustomer enterpriseCustomer) {
         return enterpriseCustomerRepository.findById(enterpriseCustomer.getId()).flatMap(c -> {
+            c.setAddress(enterpriseCustomer.getAddress());
+            c.setDni(enterpriseCustomer.getDni());
             c.setBusinessName(enterpriseCustomer.getBusinessName());
             c.setRuc(enterpriseCustomer.getRuc());
             c.setUpdatedAt(new Date());

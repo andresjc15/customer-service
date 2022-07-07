@@ -15,7 +15,6 @@ import java.util.Collections;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    //private final WebClient client;
     @Qualifier("accountClient")
     @Autowired
     private WebClient.Builder webClientBuilder;
