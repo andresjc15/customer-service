@@ -16,11 +16,13 @@ public class PersonalCustomer extends Customer {
     private String lastName;
 
     public PersonalCustomer(PersonalCustomerRequest personalCustomerRequest) {
+        this.setId(personalCustomerRequest.getId());
         this.setAddress(personalCustomerRequest.getAddress());
         this.setDni(personalCustomerRequest.getDni());
         this.setPhone(personalCustomerRequest.getPhone());
         this.setEmail(personalCustomerRequest.getEmail());
-        this.name = personalCustomerRequest.getName();
-        this.lastName = personalCustomerRequest.getLastName();
+        this.setName(personalCustomerRequest.getName());
+        this.setLastName(personalCustomerRequest.getLastName());
+        this.setUpdatedAt(personalCustomerRequest.getUpdatedAt());
     }
 }

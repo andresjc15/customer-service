@@ -23,11 +23,13 @@ public class EnterpriseCustomer extends Customer {
     }
 
     public EnterpriseCustomer(EnterpriseCustomerRequest enterpriseCustomerRequest) {
+        this.setId(enterpriseCustomerRequest.getId());
         this.setAddress(enterpriseCustomerRequest.getAddress());
         this.setDni(enterpriseCustomerRequest.getDni());
         this.setPhone(enterpriseCustomerRequest.getPhone());
         this.setEmail(enterpriseCustomerRequest.getEmail());
         this.businessName = enterpriseCustomerRequest.getBusinessName();
         this.ruc = enterpriseCustomerRequest.getRuc();
+        this.setUpdatedAt(enterpriseCustomerRequest.getUpdatedAt());
     }
 }

@@ -47,7 +47,10 @@ public class PersonalCustomerServiceImpl implements PersonalCustomerService {
             c.setAddress(personalCustomer.getAddress());
             c.setDni(personalCustomer.getDni());
             c.setUpdatedAt(new Date());
-            return personalCustomerRepository.save(personalCustomer);
+            log.info(c.getUpdatedAt().toString());
+            return personalCustomerRepository.save(personalCustomer).doOnSuccess(obj ->
+                log.info("[CUSTOMER UPDATED]: " + obj)
+            );
         });
     }
 
